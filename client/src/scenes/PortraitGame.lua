@@ -197,7 +197,7 @@ function PortraitGame:flipToPortrait()
   GAME.globalCanvas = love.graphics.newCanvas(consts.CANVAS_HEIGHT, consts.CANVAS_WIDTH, {dpiscale=GAME:newCanvasSnappedScale()})
 
   local width, height, _ = love.window.getMode()
-  if love.system.getOS() == "Android" or love.system.getOS() == "iOS" or DEBUG_ENABLED then
+  if love.system.getOS() == "Android" or DEBUG_ENABLED then
     -- flip the window dimensions to portrait
     love.window.updateMode(height, width, {})
     love.window.setFullscreen(true)
@@ -251,7 +251,7 @@ function PortraitGame:returnToLandscape()
   GAME.globalCanvas = love.graphics.newCanvas(consts.CANVAS_WIDTH, consts.CANVAS_HEIGHT, {dpiscale=GAME:newCanvasSnappedScale()})
   -- flip the window dimensions to landscape
   local width, height, _ = love.window.getMode()
-  if love.system.getOS() == "Android" or love.system.getOS() == "iOS" or DEBUG_ENABLED then
+  if love.system.getOS() == "Android" or DEBUG_ENABLED then
     love.window.updateMode(height, width, {})
     love.window.setFullscreen(false)
     --GAME:updateCanvasPositionAndScale(width, height)
