@@ -194,17 +194,18 @@ end
 
 function PortraitGame:flipToPortrait()
   local width, height, _ = love.window.getMode()
-  love.window.updateMode(height, width, {}) --note: love.window.updateMode clears canvases, so let's do this before making a new canvas
-  --love.window.setFullscreen(true)
-  -- recreate the global canvas in portrait dimensions
-  GAME.globalCanvas = love.graphics.newCanvas(consts.CANVAS_HEIGHT, consts.CANVAS_WIDTH, {dpiscale=GAME:newCanvasSnappedScale()})
-  width, height, _ = love.window.getMode()
-  GAME:updateCanvasPositionAndScale(width, height)
-  
-  if love.system.getOS() == "Android" or DEBUG_ENABLED then
+  love.window.setMode(height, width, {}) --note: love.window.updateMode clears canvases, so let's do this before making a new canvas
+  if love.system.getOS() == "Android" or love.system.getOS() == "iOS" or DEBUG_ENABLED then
+    love.window.setFullscreen(true)
     -- flip the window dimensions to portrait
     --GAME:updateCanvasPositionAndScale(width, height)
   end
+  -- recreate the global canvas in portrait dimensions
+  GAME.globalCanvas = love.graphics.newCanvas(consts.CANVAS_HEIGHT, consts.CANVAS_WIDTH, {dpiscale=GAME:newCanvasSnappedScale()})
+  width, height, _ = love.window.getMode()
+  GAME:handleResize(width, height)
+  
+  
 
   for _, player in ipairs(self.match.players) do
     if player.isLocal and player.human and player.settings.inputMethod == "touch" then
