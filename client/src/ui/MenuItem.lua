@@ -25,7 +25,7 @@ function MenuItem.createMenuItem(label, item)
 
   menuItem.width = label.width + (2 * MenuItem.PADDING)
 
-  if love.system.getOS() == "Android" or DEBUG_ENABLED then
+  if love.system.getOS() == "Android" or love.system.getOS() == "iOS" or DEBUG_ENABLED then
     label.height = math.max(30, label.height + (2 * MenuItem.PADDING))
     menuItem.height = math.max(30, label.height, item and item.height or 0)
   else
@@ -36,7 +36,7 @@ function MenuItem.createMenuItem(label, item)
     local spaceBetween = 16
     item.x = label.width + spaceBetween
     item.vAlign = "center"
-    if love.system.getOS() == "Android" or DEBUG_ENABLED then
+    if love.system.getOS() == "Android" or love.system.getOS() == "iOS" or DEBUG_ENABLED then
       item.height = math.max(30, item.height)
     end
     menuItem.width = item.x + item.width + MenuItem.PADDING

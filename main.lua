@@ -37,7 +37,7 @@ function love.load(args, rawArgs)
   local desktopWidth, desktopHeight = love.window.getDesktopDimensions(displayIndex)
   local w, windowHeight, flags = love.window.getMode()
 
-  if not flags.fullscreen and not flags.borderless and love.system.getOS() ~= "Android" then
+  if not flags.fullscreen and not flags.borderless and love.system.getOS() ~= "Android" and love.system.getOS() ~= "iOS" then
     if y == 0 and windowHeight >= desktopHeight then
       if love.window.isMaximized() then
         love.window.restore()
