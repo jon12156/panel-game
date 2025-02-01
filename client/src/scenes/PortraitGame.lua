@@ -198,7 +198,8 @@ function PortraitGame:flipToPortrait()
   --love.window.setFullscreen(true)
   -- recreate the global canvas in portrait dimensions
   GAME.globalCanvas = love.graphics.newCanvas(consts.CANVAS_HEIGHT, consts.CANVAS_WIDTH, {dpiscale=GAME:newCanvasSnappedScale()})
-  GAME:updateCanvasPositionAndScale(height, width)
+  width, height, _ = love.window.getMode()
+  GAME:updateCanvasPositionAndScale(width, height)
   
   if love.system.getOS() == "Android" or DEBUG_ENABLED then
     -- flip the window dimensions to portrait
