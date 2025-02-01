@@ -202,7 +202,7 @@ function PortraitGame:flipToPortrait()
   end
   -- recreate the global canvas in portrait dimensions
   GAME.globalCanvas = love.graphics.newCanvas(consts.CANVAS_HEIGHT, consts.CANVAS_WIDTH, {dpiscale=GAME:newCanvasSnappedScale()})
-  GAME:refreshCanvasAndImagesForNewScale()
+  panels_init()
   
   
 
