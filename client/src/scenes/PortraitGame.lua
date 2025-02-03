@@ -193,19 +193,23 @@ function PortraitGame:draw()
 end
 
 function PortraitGame:flipToPortrait()
-  local width, height, _ = love.window.getMode()
-  love.window.setMode(height, width, {}) --note: love.window.updateMode clears canvases, so let's do this before making a new canvas
-  if love.system.getOS() == "Android" or love.system.getOS() == "iOS" or DEBUG_ENABLED then
+   -- recreate the global canvas in portrait dimensions
+  GAME.globalCanvas = love.graphics.newCanvas(consts.CANVAS_HEIGHT, consts.CANVAS_WIDTH, {dpiscale=GAME:newCanvasSnappedScale()})
+  
+  if love.system.getOS() == "Android" or DEBUG_ENABLED then
+    love.window.updateMode(height, width, {})
     love.window.setFullscreen(true)
     -- flip the window dimensions to portrait
     --GAME:updateCanvasPositionAndScale(width, height)
   end
-  -- recreate the global canvas in portrait dimensions
-  GAME.globalCanvas = love.graphics.newCanvas(consts.CANVAS_HEIGHT, consts.CANVAS_WIDTH, {dpiscale=GAME:newCanvasSnappedScale()})
-  panels_init()
+  if love.system.getOS() == "iOS" then
+    local width, height, _ = love.window.getMode()
+    love.window.setMode(height, width, {}) --note: love.window.updateMode clears canvases, so let's do this before making a new canvas
+    -- recreate the global canvas in portrait dimensions
+    GAME.globalCanvas = love.graphics.newCanvas(consts.CANVAS_HEIGHT, consts.CANVAS_WIDTH, {dpiscale=GAME:newCanvasSnappedScale()})
+    panels_init()
+  end
   
-  
-
   for _, player in ipairs(self.match.players) do
     if player.isLocal and player.human and player.settings.inputMethod == "touch" then
       -- modify the stack to use a higher gfxScale instead of the usual 3
